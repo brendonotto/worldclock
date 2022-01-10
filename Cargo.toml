@@ -1,0 +1,16 @@
+[package]
+name = "worldclock"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = "3.0.0-beta.2"
+reqwest = { version = "0.11.4", features = ["json"] }
+tokio = { version = "1.9.0", features = ["full"] }
+serde = { version = "1.0.127", features = ["derive"] }
+serde_derive = "1.0.127"
+serde_json = "1.0.66"
+cli-table = "0.4"
+futures = "0.3.16"
