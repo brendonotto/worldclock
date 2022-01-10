@@ -12,83 +12,24 @@ use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 
-#[derive(Deserialize, Debug)]
-struct Meta {
-    code: String,
-    execution_time: String,
-}
+// #[derive(Deserialize, Debug)]
+// struct Meta {
+//     code: String,
+//     execution_time: String,
+// }
 
 #[derive(Deserialize, Debug)]
 struct Timezone {
     id: String,
-    location: String,
-    country_code: String,
-    country_name: String,
-    iso3166_1_alpha_2: String,
-    iso3166_1_alpha_3: String,
-    un_m49_code: String,
-    itu: String,
-    marc: String,
-    wmo: String,
-    ds: String,
-    phone_prefix: String,
-    fifa: String,
-    fips: String,
-    gual: String,
-    ioc: String,
-    currency_alpha_code: String,
-    currency_country_name: String,
-    currency_minor_unit: String,
-    currency_name: String,
-    currency_code: String,
-    independent: String,
-    capital: String,
-    continent: String,
-    tld: String,
-    languages: String,
-    geoname_id: String,
-    edgar: String,
 }
 
 #[derive(Deserialize, Debug)]
 struct Datetime {
-    date: String,
-    date_time: String,
-    date_time_txt: String,
-    date_time_wti: String,
-    date_time_ymd: String,
-    time: String,
-    month: String,
-    month_wilz: String,
-    month_abbr: String,
-    month_full: String,
-    month_days: String,
-    day: String,
-    day_wilz: String,
-    day_abbr: String,
-    day_full: String,
-    year: String,
-    year_abbr: String,
-    hour_12_wolz: String,
     hour_12_wilz: String,
-    hour_24_wolz: String,
-    hour_24_wilz: String,
     hour_am_pm: String,
     minutes: String,
     seconds: String,
-    week: String,
-    offset_seconds: String,
-    offset_minutes: String,
     offset_hours: String,
-    offset_gmt: String,
-    offset_tzid: String,
-    offset_tzab: String,
-    offset_tzfull: Option<String>,
-    tz_string: String,
-    dst: String,
-    dst_observes: String,
-    timeday_spe: String,
-    timeday_gen: String,
 }
 
 #[derive(Deserialize, Debug)]
@@ -99,7 +40,6 @@ struct Data {
 
 #[derive(Deserialize, Debug)]
 struct TimeZoneApiResponse {
-    meta: Meta,
     data: Data,
 }
 
@@ -147,7 +87,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         "America/Los_Angeles",
     ];
 
-    let zones2 = read_lines("worldclock.config");
+    //let zones2 = read_lines("worldclock.config");
 
     let api_key: String;
     match env::var("TZ_API_KEY") {
