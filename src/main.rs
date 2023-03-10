@@ -89,9 +89,8 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
     //let zones2 = read_lines("worldclock.config");
 
-    let api_key: String;
-    match env::var("TZ_API_KEY") {
-        Ok(key) => api_key = key,
+    let api_key: String = match env::var("TZ_API_KEY") {
+        Ok(key) => key,
         _ => panic!("API key not found!"),
     };
 
