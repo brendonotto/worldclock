@@ -92,7 +92,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let api_key: String;
     match env::var("TZ_API_KEY") {
         Ok(key) => api_key = key,
-        _ => panic!("API key not found!")
+        _ => panic!("API key not found!"),
     };
 
     let mut zones_urls: Vec<String> = Vec::new();
@@ -100,8 +100,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     for zone in &zones {
         let url = format!(
             "https://timezoneapi.io/api/timezone/?{}&token={}",
-            zone,
-            api_key
+            zone, api_key
         );
         zones_urls.push(url);
     }
@@ -118,20 +117,17 @@ async fn main() -> Result<(), Box<dyn Error>> {
         async move {
             match send_fut.await {
                 Ok(resp) => match resp.json::<TimeZoneApiResponse>().await {
-                    Ok(detail) => {
-                        let output = OutputFormat {
-                            time_zone: detail.data.timezone.id,
-                            current_time: format!(
-                                "{}:{}:{} {}",
-                                detail.data.datetime.hour_12_wilz,
-                                detail.data.datetime.minutes,
-                                detail.data.datetime.seconds,
-                                detail.data.datetime.hour_am_pm
-                            ),
-                            offset: detail.data.datetime.offset_hours.parse::<i8>().unwrap(),
-                        };
-                        output
-                    }
+                    Ok(detail) => OutputFormat {
+                        time_zone: detail.data.timezone.id,
+                        current_time: format!(
+                            "{}:{}:{} {}",
+                            detail.data.datetime.hour_12_wilz,
+                            detail.data.datetime.minutes,
+                            detail.data.datetime.seconds,
+                            detail.data.datetime.hour_am_pm
+                        ),
+                        offset: detail.data.datetime.offset_hours.parse::<i8>().unwrap(),
+                    },
                     Err(_) => panic!("Error happened {:?}", zone),
                 },
                 Err(_) => panic!("Error happened {:?}", zone),
